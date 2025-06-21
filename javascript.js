@@ -8,11 +8,11 @@ function getComputerChoice() {
 
     switch (rand) {
         case 0:
-            return "Rock"
+            return "rock"
         case 1:
-            return "Paper"
+            return "paper"
         case 2:
-            return "Scissors"
+            return "scissors"
     }
 }
 
@@ -20,4 +20,23 @@ function getHumanChoice() {
     return prompt("Rock Paper Scissors\nEnter Your Choice", "Rock");
 }
 
-getHumanChoice();
+function playRound(computerChoice, humanChoice) {
+    humanChoice = humanChoice.toLowerCase();
+
+    if (computerChoice === humanChoice) {   // Draw
+        console.log("A tie! You both entered " + humanChoice);
+    }
+    else if (computerChoice === "rock" && humanChoice === "scissors" ||
+        computerChoice === "paper" && humanChoice === "rock" ||
+        computerChoice === "scissors" && humanChoice === "paper")
+    {                                       // Computer Wins
+        ++computerScore;
+        console.log("You lose! " + computerChoice + " beats " + humanChoice + "!");
+    }
+    else {                                  // Player Wins
+        ++humanScore;
+        console.log("You win! " + humanChoice + " beats " + computerChoice + "!");
+    }
+}
+
+playRound(getComputerChoice(), getHumanChoice());
