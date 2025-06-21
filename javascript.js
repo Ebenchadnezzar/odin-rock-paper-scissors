@@ -1,4 +1,5 @@
-
+let humanScore = 0;
+let computerScore = 0;
 
 function getComputerChoice() {
     // Will never be 3, since math.random() returns a
@@ -14,3 +15,9 @@ function getComputerChoice() {
             return "Scissors"
     }
 }
+
+function getHumanChoice() {
+    return prompt("Rock Paper Scissors\nEnter Your Choice", "Rock");
+}
+
+getHumanChoice();
