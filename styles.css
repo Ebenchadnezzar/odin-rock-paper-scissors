@@ -1,0 +1,108 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(34, 44, 44);
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 64px;
+}
+
+.options button {
+    width: 150px;
+    height: 150px;
+    border-radius: 25px;
+    border-style: none;
+    background-color: rgb(104, 148, 151);
+    color: rgb(34, 44, 44);
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.blurry {
+    position: absolute;
+    min-width: 100%;
+    min-height: 100vh;
+    background-color: black;
+    opacity: 0.75;
+}
+
+.winScreen {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+    background-color: rgb(104, 148, 151);
+    border-radius: 150px;
+}
+
+.winScreen button {
+    width: 100px;
+    height: 50px;
+    border-radius: 50px;
+    border-style: none;
+    background-color: rgb(34, 44, 44);
+    color: rgb(104, 148, 151); 
+}
+
+.scores {
+    display: flex;
+    gap: 150px;
+    flex-grow: 0;
+    justify-content: center;
+    align-items: center;
+    padding: 32px 64px;
+    margin: 32px;
+    border-radius: 128px;
+    background-color: rgb(35, 37, 39);
+}
+
+.scoreContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1, h2 {
+    color: rgb(104, 148, 151);
+    padding: 0;
+    margin: 0;
+    font-weight: bol;
+}
+
+h1 {
+    font-size: 96px;
+}
+
+h2 {
+    font-size: 32px;
+}
+
+.scoreMsg {
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+    color: rgb(104, 148, 151);
+}
+
+.winScreen p {
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+    color: rgb(34, 44, 44);
+    margin: 50px;
+}

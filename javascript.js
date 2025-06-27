@@ -1,4 +1,16 @@
-const NUM_ROUNDS = 5;
+const SCORE_TO_WIN = 5; 
+
+let rockButton = document.querySelector("#rockbtn");
+let paperButton = document.querySelector("#paperbtn");
+let scissorsButton = document.querySelector("#scissorsbtn");
+
+let humanScore = document.querySelector(".humanScore");
+let computerScore = document.querySelector(".computerScore");
+let scoreMsg = document.querySelector(".scoreMsg");
+
+rockButton.addEventListener("click", playRound);
+paperButton.addEventListener("click", playRound);
+scissorsButton.addEventListener("click", playRound);
 
 function getComputerChoice() {
     // Will never be 3, since math.random() returns a
@@ -15,49 +27,68 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    return prompt("Rock Paper Scissors\nEnter Your Choice", "Rock");
-}
-
-function playRound(computerChoice, humanChoice) {
-    humanChoice = humanChoice.toLowerCase();
+function playRound(e) {
+    let humanChoice = e.target.id.slice(0, -3);
+    let computerChoice = getComputerChoice();
 
     if (computerChoice === humanChoice) {   // Draw
-        alert("A tie! You both entered " + humanChoice);
+        scoreMsg.textContent = "Draw! You both entered " + humanChoice;
     }
     else if (computerChoice === "rock" && humanChoice === "scissors" ||
         computerChoice === "paper" && humanChoice === "rock" ||
         computerChoice === "scissors" && humanChoice === "paper")
     {                                       // Computer Wins
-        alert("You lose! " + computerChoice + " beats " + humanChoice + "!");
-        return 1;
+        let curComputerScore = +computerScore.textContent;
+        ++curComputerScore;
+        computerScore.textContent = curComputerScore;
+
+        scoreMsg.textContent = "You Lose! " + computerChoice + " beats " + humanChoice;
+
+        if (curComputerScore >= SCORE_TO_WIN) {
+            onWin("computer");
+        }
     }
     else {                                  // Player Wins
-        alert("You win! " + humanChoice + " beats " + computerChoice + "!");
-        return 0;
+        let curHumanScore = +humanScore.textContent;
+        ++curHumanScore;
+        humanScore.textContent = curHumanScore;
+
+        scoreMsg.textContent = "You Win! " + humanChoice + " beats " + computerChoice;
+
+        if (curHumanScore >= SCORE_TO_WIN) {
+            onWin("human");
+        }
     }
 }
 
-function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
+function onWin(winner) {
+    let blurMask = document.createElement("div");
+    let winContainer = document.createElement("div");
+    let replayButton = document.createElement("button");
+    let winText = document.createElement("p");
 
-    for (let i = 0; i < NUM_ROUNDS; ++i) {
-        let result = playRound(getComputerChoice(), getHumanChoice());
-        
-        // This is my hacky solution to needing to have the score
-        // variables in local scope but update them from playRound,
-        // specifically without using objects or arrays.
-        // I've arbitrarily defined 0 as human, and 1 as computer
-        if (result === 0) { ++humanScore; }
-        else if (result === 1) { ++computerScore; }
+    replayButton.textContent = "Play Again";
+    winContainer.classList.toggle("winScreen");
+    blurMask.classList.toggle("blurry");
+
+    replayButton.addEventListener("click", () => {
+        humanScore.textContent = "0";
+        computerScore.textContent = "0";
+        scoreMsg.textContent = "Pick an Option!";
+
+        document.querySelector("body").removeChild(blurMask);
+        document.querySelector("body").removeChild(winContainer);
+    })
+
+    if (winner === "player") {
+        winText.textContent = "YOU Won! Congratulations\n";
+    }
+    else {
+        winText.textContent = "COMPUTER Won. Do better lol\n";
     }
 
-    let finalMessage = "Final Score: You " + humanScore + ", Computer " + computerScore;
-    if (humanScore > computerScore) { finalMessage += "\nYou win!"; }
-    else { finalMessage += "\nYou lose!"; }
-
-    alert(finalMessage);
+    winContainer.appendChild(winText);
+    winContainer.appendChild(replayButton);
+    document.querySelector("body").appendChild(blurMask);   
+    document.querySelector("body").appendChild(winContainer);   
 }
-
-playGame();
