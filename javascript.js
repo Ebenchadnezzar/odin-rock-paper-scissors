@@ -80,7 +80,7 @@ function onWin(winner) {
         document.querySelector("body").removeChild(winContainer);
     })
 
-    if (winner === "player") {
+    if (winner === "human") {
         winText.textContent = "YOU Won! Congratulations\n";
     }
     else {
